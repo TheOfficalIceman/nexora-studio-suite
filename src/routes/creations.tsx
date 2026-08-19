@@ -16,11 +16,10 @@ import {
 import { PROJECT_TYPE_LABEL, type ProjectType } from "@/lib/types";
 import { useProjects } from "@/lib/use-projects";
 import { downloadProject } from "@/lib/download";
+import { validateProjectSearch } from "@/lib/route-search";
 
 export const Route = createFileRoute("/creations")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    project: typeof search["project"] === "string" ? (search["project"] as string) : undefined,
-  }),
+  validateSearch: validateProjectSearch,
   head: () => ({
     meta: [
       { title: "My Creations — Nexora" },
