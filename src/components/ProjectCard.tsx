@@ -103,7 +103,7 @@ export function ProjectCard({
               <DropdownMenuItem onClick={() => onDownload(record)}>
                 <Download className="size-4" /> Download
               </DropdownMenuItem>
-              <DropdownMenuItem variant="destructive" onClick={() => onDelete(record.id)}>
+              <DropdownMenuItem className="text-destructive focus:text-destructive" onClick={() => onDelete(record.id)}>
                 <Trash2 className="size-4" /> Delete
               </DropdownMenuItem>
             </DropdownMenuContent>
