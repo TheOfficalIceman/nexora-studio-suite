@@ -10,33 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as NexoraProjectsRouteImport } from './routes/nexora-projects'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NexoraProjectsRoute = NexoraProjectsRouteImport.update({
+  id: '/nexora-projects',
+  path: '/nexora-projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/nexora-projects': typeof NexoraProjectsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/nexora-projects': typeof NexoraProjectsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/nexora-projects': typeof NexoraProjectsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/nexora-projects'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/nexora-projects'
+  id: '__root__' | '/' | '/nexora-projects'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  NexoraProjectsRoute: typeof NexoraProjectsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +58,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nexora-projects': {
+      id: '/nexora-projects'
+      path: '/nexora-projects'
+      fullPath: '/nexora-projects'
+      preLoaderRoute: typeof NexoraProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  NexoraProjectsRoute: NexoraProjectsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
