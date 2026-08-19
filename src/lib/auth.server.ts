@@ -27,7 +27,7 @@ export function toRecord(row: Row): NexoraProjectRecord {
     id: row.id,
     name: row.name,
     type: row.type as ProjectType,
-    data: row.data,
+    data: typeof row.data === "string" ? row.data : JSON.stringify(row.data ?? {}),
     thumbnail: row.thumbnail,
     favorite: row.favorite,
     createdAt: row.created_at,

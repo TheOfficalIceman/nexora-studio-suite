@@ -28,7 +28,7 @@ export const localProjects = {
     id?: string;
     name: string;
     type: ProjectType;
-    data: unknown;
+    data: string;
     thumbnail?: string | null;
   }): NexoraProjectRecord {
     const list = read();

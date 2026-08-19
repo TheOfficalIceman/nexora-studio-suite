@@ -48,7 +48,7 @@ export const saveProject = createServerFn({ method: "POST" })
         id: z.string().uuid().optional(),
         name: z.string().min(1).max(120),
         type: projectTypes,
-        data: z.unknown(),
+        data: z.string(),
         thumbnail: z.string().nullable().optional(),
       })
       .parse(input),
@@ -60,7 +60,7 @@ export const saveProject = createServerFn({ method: "POST" })
       user_id: userId,
       name: input.name,
       type: input.type,
-      data: (input.data ?? {}) as never,
+      data: (input.data ?? "{}") as never,
       thumbnail: input.thumbnail ?? null,
       updated_at: new Date().toISOString(),
     };
@@ -192,7 +192,14 @@ export const savePreferences = createServerFn({ method: "POST" })
     const { error } = await db
       .from("user_preferences")
       .upsert(
-        { user_id: userId, ...input, updated_at: new Date().toISOString() },
+        {
+          user_id: userId,
+          favorite_tools: input.favorite_tools ?? [],
+          default_version: input.default_version ?? "1.21",
+          autosave: input.autosave ?? true,
+          show_grid: input.show_grid ?? true,
+          updated_at: new Date().toISOString(),
+        },
         { onConflict: "user_id" },
       );
     if (error) throw new Error(error.message);

@@ -10,7 +10,8 @@ export interface NexoraProjectRecord {
   id: string;
   name: string;
   type: ProjectType;
-  data: unknown;
+  /** Editor state, serialized as JSON. */
+  data: string;
   thumbnail: string | null;
   favorite: boolean;
   createdAt: string;
